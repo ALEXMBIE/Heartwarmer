@@ -1,0 +1,173 @@
+
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Kenza</title>
+  <style>
+    :root{
+      --accent-color: #00bfff; /* 💙 couleur bleue principale */
+      --text: #ffffff;
+    }
+
+    html,body{
+      height:100%;
+      margin:0;
+      font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color:var(--text);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+
+      /* 🌌 Arrière-plan noir avec teinte bleue */
+      background: radial-gradient(circle at top left, #001f3f 0%, #000000 80%);
+      background-attachment: fixed;
+    }
+
+    .container{
+      width:95%;
+      max-width:900px;
+      padding:24px;
+      box-sizing:border-box;
+      text-align:center;
+      background-color: rgba(0, 0, 0, 0.4); /* effet semi-transparent */
+      border-radius:12px;
+      box-shadow: 0 0 30px rgba(0,191,255,0.3);
+    }
+
+    h1{
+      margin:0 0 18px 0;
+      font-size:1.6rem;
+      letter-spacing:0.4px;
+      color:var(--accent-color);
+      text-shadow:0 0 10px rgba(0,191,255,0.8);
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+      gap:12px;
+      align-items:start;
+    }
+
+    .card{
+      background: rgba(255,255,255,0.06);
+      border-radius:10px;
+      padding:10px 12px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+      display:flex;
+      align-items:center;
+      gap:8px;
+      justify-content:center;
+      min-height:48px;
+      transition:transform .18s ease, box-shadow .18s ease;
+      opacity:0;
+      transform: translateY(10px);
+      animation: appear .5s forwards;
+    }
+    .card:hover{
+      transform:translateY(-6px) scale(1.02);
+      box-shadow: 0 0 15px rgba(0,191,255,0.5);
+    }
+
+    .phrase {
+      font-weight:600;
+      color:var(--accent-color);
+      display:inline-flex;
+      gap:6px;
+      align-items:center;
+      font-size:0.98rem;
+    }
+
+    .heart{
+      font-size:1.05rem;
+      color:var(--accent-color);
+      transition: transform .25s ease;
+      text-shadow: 0 0 8px rgba(0,191,255,0.8);
+    }
+    .card:hover .heart{
+      transform:translateY(-4px) scale(1.15);
+    }
+
+    @keyframes appear {
+      to{ opacity:1; transform: translateY(0); }
+    }
+
+    .controls{
+      margin-top:14px;
+      display:flex;
+      justify-content:center;
+      gap:8px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+    .color-swatch{
+      width:32px;
+      height:32px;
+      border-radius:6px;
+      cursor:pointer;
+      border:2px solid rgba(255,255,255,0.06);
+    }
+    .note{
+      font-size:0.85rem;
+      color: #e8e8e8;
+    }
+
+    @media (max-width:480px){
+      .grid{ grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:8px; }
+      .phrase{ font-size:0.9rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>100 x « Kenza c’est mon bébé 💙 »</h1>
+
+    <div id="grid" class="grid"></div>
+
+    <div class="controls">
+      <div class="note">Couleur : </div>
+      <div class="color-swatch" data-color="#00bfff" style="background:#00bfff"></div>
+      <div class="color-swatch" data-color="#1e90ff" style="background:#1e90ff"></div>
+      <div class="color-swatch" data-color="#7c5cff" style="background:#7c5cff"></div>
+      <div class="color-swatch" data-color="#00c2a8" style="background:#00c2a8"></div>
+      <div class="color-swatch" data-color="#ff4da6" style="background:#ff4da6"></div>
+      <div class="note">— clique pour changer</div>
+    </div>
+  </div>
+
+  <script>
+    const phraseTexte = "Kenza c’est mon bébé";
+    const grid = document.getElementById('grid');
+
+    for(let i=0;i<100;i++){
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.style.animationDelay = (i * 8) + 'ms';
+
+      const span = document.createElement('div');
+      span.className = 'phrase';
+
+      const heart = document.createElement('span');
+      heart.className = 'heart';
+      heart.textContent = '💙🙂‍↕';
+
+      const text = document.createElement('span');
+      text.textContent = phraseTexte;
+
+      span.appendChild(heart);
+      span.appendChild(text);
+      card.appendChild(span);
+      grid.appendChild(card);
+    }
+
+    document.querySelectorAll('.color-swatch').forEach(s => {
+      s.addEventListener('click', () => {
+        const c = s.getAttribute('data-color');
+        document.documentElement.style.setProperty('--accent-color', c);
+      });
+    });
+  </script>
+</body>
+</html>
